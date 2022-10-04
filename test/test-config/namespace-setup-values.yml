@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: namespace-setup-values
+  namespace: carvel-test
+stringData:
+  values.yaml: |
+    gitops:
+      server: https://github.com
+      username: user
+      password: token
+
+    registry: 
+      server: ghcr.io
+      username: user
+      password: token
+
+    namespaces:
+      - name: default
+        exists: True # If True, the namespace must exist.
+      - name: tom-dev
+        exists: False

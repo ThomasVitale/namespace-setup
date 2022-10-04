@@ -1,0 +1,103 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: namespace-setup.packages.kadras.io.0.0.0
+spec:
+  refName: namespace-setup.packages.kadras.io
+  releasedAt: null
+  template:
+    spec:
+      deploy:
+      - kapp: {}
+      fetch:
+      - git: {}
+      template:
+      - ytt:
+          paths:
+          - config
+      - kbld: {}
+  valuesSchema:
+    openAPIv3:
+      additionalProperties: false
+      properties:
+        namespaces:
+          type: array
+          description: Configuration for developer namespaces
+          items:
+            type: object
+            additionalProperties: false
+            description: Details about the namespace to configure
+            properties:
+              name:
+                type: string
+                default: ""
+              exists:
+                type: boolean
+                default: false
+          default: []
+        registry:
+          type: object
+          additionalProperties: false
+          description: Configuration to access the OCI registry where the Kadras packages are stored
+          properties:
+            server:
+              type: string
+              description: The OCI registry server where the Kadras packages are stored
+              default: ""
+            username:
+              type: string
+              description: The username for the OCI registry server where the Kadras packages are stored
+              default: ""
+            password:
+              type: string
+              description: The password for the OCI registry server where the Kadras packages are stored
+              default: ""
+        gitops:
+          type: object
+          additionalProperties: false
+          description: Configuration to access the Git repositories used in the GitOps workflows
+          properties:
+            server:
+              type: string
+              description: The Git server hosting the Git repositories used in the GitOps workflows
+              default: https://github.com
+            username:
+              type: string
+              description: The username for the Git server used in the GitOps workflows
+              default: ""
+            password:
+              type: string
+              description: The password for the Git server used in the GitOps workflows
+              default: ""
+  version: 0.0.0
+
+---
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: PackageMetadata
+metadata:
+  creationTimestamp: null
+  name: namespace-setup.packages.kadras.io
+spec:
+  displayName: namespace-setup
+  longDescription: namespace-setup.packages.kadras.io
+  shortDescription: namespace-setup.packages.kadras.io
+
+---
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  annotations:
+    kctrl.carvel.dev/local-fetch-0: .
+  creationTimestamp: null
+  name: namespace-setup
+spec:
+  packageRef:
+    refName: namespace-setup.packages.kadras.io
+    versionSelection:
+      constraints: 0.0.0
+  serviceAccountName: kadras-install-sa
+status:
+  conditions: null
+  friendlyDescription: ""
+  observedGeneration: 0

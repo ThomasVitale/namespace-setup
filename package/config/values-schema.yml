@@ -1,0 +1,26 @@
+#@data/values-schema
+---
+
+#@schema/desc "Configuration for developer namespaces"
+namespaces:
+  #@schema/desc "Details about the namespace to configure"
+  - name: ""
+    exists: False
+
+#@schema/desc "Configuration to access the OCI registry where the Kadras packages are stored"
+registry:
+  #@schema/desc "The OCI registry server where the Kadras packages are stored"
+  server: ""
+  #@schema/desc "The username for the OCI registry server where the Kadras packages are stored"
+  username: ""
+  #@schema/desc "The password for the OCI registry server where the Kadras packages are stored"
+  password: ""
+
+#@schema/desc "Configuration to access the Git repositories used in the GitOps workflows"
+gitops:
+  #@schema/desc "The Git server hosting the Git repositories used in the GitOps workflows"
+  server: https://github.com
+  #@schema/desc "The username for the Git server used in the GitOps workflows"
+  username: ""
+  #@schema/desc "The password for the Git server used in the GitOps workflows"
+  password: ""

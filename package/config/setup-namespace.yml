@@ -1,0 +1,122 @@
+#@ load("@ytt:data","data")
+
+#@ for namespace in data.values.namespaces:
+
+#@ if namespace.exists == False:
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: #@ namespace.name
+#@ end
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: registry-credentials
+  namespace: #@ namespace.name
+  annotations:
+    secretgen.carvel.dev/image-pull-secret: ""
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: e30K
+
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretImport
+metadata:
+  name: git-secret
+  namespace: #@ namespace.name
+spec:
+  fromNamespace: secrets-management
+
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretImport
+metadata:
+  name: cosign-key-pair
+  namespace: #@ namespace.name
+spec:
+  fromNamespace: secrets-management
+
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretImport
+metadata:
+  name: grype-config
+  namespace: #@ namespace.name
+spec:
+  fromNamespace: grype
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+  namespace: #@ namespace.name
+  annotations:
+    kapp.k14s.io/create-strategy: fallback-on-update
+secrets:
+  - name: registry-credentials
+  - name: git-secret
+  - name: cosign-key-pair
+imagePullSecrets:
+  - name: registry-credentials
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: application-platform-user-role
+  namespace: #@ namespace.name
+rules:
+  - apiGroups: [source.toolkit.fluxcd.io]
+    resources: [gitrepositories, ocirepositories]
+    verbs: ['*']
+  - apiGroups: [kpack.io]
+    resources: [images]
+    verbs: ['*']
+  - apiGroups: [""]
+    resources: [pods]
+    verbs: [list]
+  - apiGroups: [kapp.k14s.io]
+    resources: [configs]
+    verbs: ['*']
+  - apiGroups: [kappctrl.k14s.io]
+    resources: [apps]
+    verbs: ['*']
+  - apiGroups: [serving.knative.dev]
+    resources: [services]
+    verbs: ['*']
+  - apiGroups: [carto.run]
+    resources: [deliverables, runnables]
+    verbs: ['*']
+  - apiGroups: [conventions.carto.run]
+    resources: [podintents]
+    verbs: ['*']
+  - apiGroups: [tekton.dev]
+    resources: [pipelineruns, taskruns]
+    verbs: ['*']
+  - apiGroups: [tekton.dev]
+    resources: [pipelines, tasks]
+    verbs: ['*']
+  - apiGroups: [""]
+    resources: [configmaps]
+    verbs: ['*']
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: application-platform-user-role-binding
+  namespace: #@ namespace.name
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: application-platform-user-role
+subjects:
+  - kind: ServiceAccount
+    name: default
+
+#@ end
