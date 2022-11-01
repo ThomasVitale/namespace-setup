@@ -43,7 +43,7 @@ Either way, you can then install the Namespace Setup package using [`kctrl`](htt
 ```shell
 kctrl package install -i namespace-setup \
     -p namespace-setup.packages.kadras.io \
-    -v 0.1.0 \
+    -v 0.1.1 \
     -n carvel-packages
 ```
 
@@ -96,7 +96,7 @@ Then, reference it from the `kctrl` command when installing or upgrading the pac
 ```shell
 kctrl package install -i namespace-setup \
     -p namespace-setup.packages.kadras.io \
-    -v 0.1.0 \
+    -v 0.1.1 \
     -n carvel-packages \
     --values-file values.yml
 ```

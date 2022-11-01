@@ -23,13 +23,17 @@ data:
   .dockerconfigjson: e30K
 
 ---
-apiVersion: secretgen.carvel.dev/v1alpha1
-kind: SecretImport
+apiVersion: v1
+kind: Secret
 metadata:
   name: git-secret
   namespace: #@ namespace.name
-spec:
-  fromNamespace: secrets-management
+  annotations:
+    tekton.dev/git-0: #@ data.values.gitops.server
+type: kubernetes.io/basic-auth
+stringData:
+  username: #@ data.values.gitops.username
+  password: #@ data.values.gitops.password
 
 ---
 apiVersion: secretgen.carvel.dev/v1alpha1
