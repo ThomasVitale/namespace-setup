@@ -1,5 +1,7 @@
 # Namespace Setup
 
+<a href="https://slsa.dev/spec/v0.1/levels"><img src="https://slsa.dev/images/gh-badge-level3.svg" alt="The SLSA Level 3 badge"></a>
+
 This project provides a [Carvel package](https://carvel.dev/kapp-controller/docs/latest/packaging) for setting up namespaces with the necessary RBAC and Secrets to work with the [Kadras application platform](https://github.com/arktonix/kadras-application-platform).
 
 ## Prerequisites
@@ -33,7 +35,7 @@ Then, install the Namespace Setup package.
   ```shell
   kctrl package install -i namespace-setup \
     -p namespace-setup.packages.kadras.io \
-    -v 0.1.1 \
+    -v 0.2.0 \
     -n kadras-packages
   ```
 
@@ -90,7 +92,7 @@ Then, reference it from the `kctrl` command when installing or upgrading the pac
   ```shell
   kctrl package install -i namespace-setup \
     -p namespace-setup.packages.kadras.io \
-    -v 0.1.1 \
+    -v 0.2.0 \
     -n kadras-packages \
     --values-file values.yml
   ```
@@ -130,6 +132,6 @@ This package is inspired by the [setup](https://github.com/vrabbi/tap-oss/tree/m
 
 ## Supply Chain Security
 
-This project is compliant with level 2 of the [SLSA Framework](https://slsa.dev).
+This project is compliant with level 3 of the [SLSA Framework](https://slsa.dev).
 
-<img src="https://slsa.dev/images/SLSA-Badge-full-level2.svg" alt="The SLSA Level 2 badge" width=200>
+<img src="https://slsa.dev/images/SLSA-Badge-full-level3.svg" alt="The SLSA Level 3 badge" width=200>

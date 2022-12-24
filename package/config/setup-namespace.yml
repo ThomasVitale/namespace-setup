@@ -45,15 +45,6 @@ spec:
   fromNamespace: secrets-management
 
 ---
-apiVersion: secretgen.carvel.dev/v1alpha1
-kind: SecretImport
-metadata:
-  name: grype-config
-  namespace: #@ namespace.name
-spec:
-  fromNamespace: grype
-
----
 apiVersion: v1
 kind: ServiceAccount
 metadata:
