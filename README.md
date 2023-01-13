@@ -2,7 +2,7 @@
 
 <a href="https://slsa.dev/spec/v0.1/levels"><img src="https://slsa.dev/images/gh-badge-level3.svg" alt="The SLSA Level 3 badge"></a>
 
-This project provides a [Carvel package](https://carvel.dev/kapp-controller/docs/latest/packaging) for setting up namespaces with the necessary RBAC and Secrets to work with the [Kadras application platform](https://github.com/arktonix/kadras-application-platform).
+This project provides a [Carvel package](https://carvel.dev/kapp-controller/docs/latest/packaging) for setting up namespaces with the necessary RBAC and Secrets to work with the [Kadras application platform](https://github.com/kadras-io/kadras-application-platform).
 
 ## Prerequisites
 
@@ -17,16 +17,16 @@ This project provides a [Carvel package](https://carvel.dev/kapp-controller/docs
 
 ## Dependencies
 
-Namespace Setup requires the Secretgen Controller package to be already installed in the cluster. You can install it from the [Kadras package repository](https://github.com/arktonix/kadras-packages).
+Namespace Setup requires the Secretgen Controller package to be already installed in the cluster. You can install it from the [Kadras package repository](https://github.com/kadras-io/kadras-packages).
 
 ## Installation
 
-First, add the [Kadras package repository](https://github.com/arktonix/kadras-packages) to your Kubernetes cluster.
+First, add the [Kadras package repository](https://github.com/kadras-io/kadras-packages) to your Kubernetes cluster.
 
   ```shell
   kubectl create namespace kadras-packages
   kctrl package repository add -r kadras-repo \
-    --url ghcr.io/arktonix/kadras-packages \
+    --url ghcr.io/kadras-io/kadras-packages \
     -n kadras-packages
   ```
 
@@ -35,7 +35,7 @@ Then, install the Namespace Setup package.
   ```shell
   kctrl package install -i namespace-setup \
     -p namespace-setup.packages.kadras.io \
-    -v 0.2.0 \
+    -v 0.2.1 \
     -n kadras-packages
   ```
 
@@ -92,7 +92,7 @@ Then, reference it from the `kctrl` command when installing or upgrading the pac
   ```shell
   kctrl package install -i namespace-setup \
     -p namespace-setup.packages.kadras.io \
-    -v 0.2.0 \
+    -v 0.2.1 \
     -n kadras-packages \
     --values-file values.yml
   ```
@@ -117,13 +117,13 @@ You can also update an existing package with a newer `values.yml` file.
 
 ## Other
 
-The recommended way of installing the Namespace Setup package is via the [Kadras package repository](https://github.com/arktonix/kadras-packages). If you prefer not using the repository, you can install the package by creating the necessary Carvel `PackageMetadata` and `Package` resources directly using [`kapp`](https://carvel.dev/kapp/docs/latest/install) or `kubectl`.
+The recommended way of installing the Namespace Setup package is via the [Kadras package repository](https://github.com/kadras-io/kadras-packages). If you prefer not using the repository, you can install the package by creating the necessary Carvel `PackageMetadata` and `Package` resources directly using [`kapp`](https://carvel.dev/kapp/docs/latest/install) or `kubectl`.
 
   ```shell
   kubectl create namespace kadras-packages
   kapp deploy -a namespace-setup-package -n kadras-packages -y \
-    -f https://github.com/arktonix/namespace-setup/releases/latest/download/metadata.yml \
-    -f https://github.com/arktonix/namespace-setup/releases/latest/download/package.yml
+    -f https://github.com/kadras-io/namespace-setup/releases/latest/download/metadata.yml \
+    -f https://github.com/kadras-io/namespace-setup/releases/latest/download/package.yml
   ```
 
 ## References

@@ -79,9 +79,14 @@ metadata:
   creationTimestamp: null
   name: namespace-setup.packages.kadras.io
 spec:
+  categories:
+  - environment provisioning
   displayName: namespace-setup
   longDescription: namespace-setup.packages.kadras.io
   shortDescription: namespace-setup.packages.kadras.io
+  maintainers:
+  - name: Thomas Vitale
+  providerName: Kadras
 
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
