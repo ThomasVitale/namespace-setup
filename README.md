@@ -2,6 +2,9 @@
 
 <a href="https://slsa.dev/spec/v0.1/levels"><img src="https://slsa.dev/images/gh-badge-level3.svg" alt="The SLSA Level 3 badge"></a>
 
+> **Warning**
+> This package has been replaced by [workspace-provisioner](https://github.com/kadras-io/workspace-provisioner).
+
 This project provides a [Carvel package](https://carvel.dev/kapp-controller/docs/latest/packaging) for setting up namespaces with the necessary RBAC and Secrets to work with the [Kadras application platform](https://github.com/kadras-io/kadras-application-platform).
 
 ## Prerequisites
